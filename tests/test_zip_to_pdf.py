@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-import io
 import zipfile
 from pathlib import Path
 
+import fitz
 import pytest
 from pypdf import PdfReader
 
@@ -100,7 +100,6 @@ def test_zip_sort_names_alphabetical(tmp_path):
     zip_path = _make_zip(tmp_path, members)
     out = tmp_path / "result.pdf"
     result = zip_to_pdf(zip_path, out, sort_names=True)
-    import fitz
     doc = fitz.open(str(result))
     texts = [doc[i].get_text().strip() for i in range(len(doc))]
     doc.close()
@@ -120,7 +119,6 @@ def test_zip_no_sort_preserves_order(tmp_path):
             zf.writestr(name, data)
     out = tmp_path / "result.pdf"
     result = zip_to_pdf(zip_path, out, sort_names=False)
-    import fitz
     doc = fitz.open(str(result))
     texts = [doc[i].get_text().strip() for i in range(len(doc))]
     doc.close()
