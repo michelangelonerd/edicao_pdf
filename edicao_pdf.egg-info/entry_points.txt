@@ -1,0 +1,2 @@
+[console_scripts]
+edicao-pdf = edicao_pdf.cli:main
